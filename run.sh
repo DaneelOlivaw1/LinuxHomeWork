@@ -3,6 +3,6 @@ if [ -f "a" ];then
     rm a
 fi
 echo "编译："
-g++ 3.cpp -o a
+g++ 4.cpp -o a
 echo "运行："
 ./a

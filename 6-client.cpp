@@ -5,14 +5,17 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <stdio.h>
-#include <stdlib.h>
+
+void Get(int sockfd, char ch[], char name[]){
+
+}
 
 int main(){
     int sockfd;
     int len;
     struct sockaddr_in address;
     int result;
-
+    
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     address.sin_family = AF_INET;
     address.sin_addr.s_addr = inet_addr("127.0.0.1");
@@ -23,28 +26,14 @@ int main(){
         perror("oops:client2");
         _exit(1);
     }
-
-    //system("top -n 1 > a.out");
-    FILE *fp;  
-    if(NULL == (fp = fopen("a.out", "r")))  
-    {  
-        exit(1);  
-    }  
-  
-    char ch[2048];
-    char t;
-    int i = 0; 
-    while(EOF != (t=fgetc(fp)))  
-    {  
-        ch[i] = t;
-        i++;
-    }  
-    //printf("%s", ch);
-    
-    write(sockfd, &ch, 2048);
-    // read(sockfd, &ch, 2048);
-    printf("sent to server \n");
+    char ch[2048] = "";
+    char name[100];
+    printf("Input a File name:");
+    scanf("%s", name);
+    printf("Request: %s\n", name);
+    write(sockfd, &name, 100);
+    read(sockfd, &ch, 2048);
+    printf("Server responce: \n%s\n", ch);
     close(sockfd);
     _exit(0);
-    fclose(fp);
 }

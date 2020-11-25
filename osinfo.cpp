@@ -57,7 +57,7 @@ int main(int argc, char **argv)
   
     printf("===cpu infomation===\n");  
     getCpuInfo();  
-  
+    
     printf("===memory information===\n");  
     getMemoryInfo();  
   

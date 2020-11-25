@@ -20,16 +20,16 @@ int main(){
     bind(server_sockfd, (struct sockaddr *)&server_address, server_len);
     listen(server_sockfd, 5);
     while(1){
-        char ch;
+        char ch[100];
 
         printf("server waiting\n");
         client_len = sizeof(client_address);
         client_sockfd = accept(server_sockfd, (struct sockaddr *)&client_address, &client_len);
-        read(client_sockfd, &ch, 1);
-        printf("%c\n", ch);
-        ch++;
+        read(client_sockfd, &ch, 100);
+        printf("%s\n", ch);
+        ch[2] = 'C';
 
-        write(client_sockfd, &ch, 1);
+        write(client_sockfd, &ch, 100);
         close(client_sockfd);
     }
 

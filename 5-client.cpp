@@ -11,7 +11,7 @@ int main(){
     int len;
     struct sockaddr_in address;
     int result;
-    char ch = 'A';
+    char ch[100] = "AB";
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     address.sin_family = AF_INET;
     address.sin_addr.s_addr = inet_addr("127.0.0.1");
@@ -22,9 +22,9 @@ int main(){
         perror("oops:client2");
         _exit(1);
     }
-    write(sockfd, &ch, 1);
-    read(sockfd, &ch, 1);
-    printf("char from server = %c\n", ch);
+    write(sockfd, &ch, 100);
+    read(sockfd, &ch, 100);
+    printf("char from server = %s\n", ch);
     close(sockfd);
     _exit(0);
 }

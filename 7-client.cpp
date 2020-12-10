@@ -22,12 +22,12 @@ int main(int argc, char *argv[])
     //     fputs("usage:./client message\n", stderr);
     //     exit(1);
     // }
-    puts("Input String:");
-    scanf("%s", str);
+    
     for (int i = 0;; i++){
         
         // str = argv[1];
-
+        puts("Input String:");
+        scanf("%s", str);
         sockfd = socket(AF_INET, SOCK_STREAM, 0);
 
         bzero(&servaddr, sizeof(servaddr));
@@ -40,8 +40,9 @@ int main(int argc, char *argv[])
         write(sockfd, str, strlen(str));
 
         n = read(sockfd, buf, MAXLINE);
-        printf("Responsefrom server:\n");
+        printf("Response from server:\n");
         write(STDOUT_FILENO, buf, n);
+        printf("\n");
     }
     
 

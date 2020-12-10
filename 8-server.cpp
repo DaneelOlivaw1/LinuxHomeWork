@@ -7,13 +7,24 @@
 #include <netinet/in.h>
 #include <ctype.h>
 #include <arpa/inet.h>
-
+#include <signal.h>
 
 #define MAXLINE 80
 #define SERV_PORT 8000
 
+
+
 int main(void)
 {
+    signal(SIGTTOU,SIG_IGN); 
+    signal(SIGTTIN,SIG_IGN); 
+    signal(SIGTSTP,SIG_IGN); 
+    signal(SIGHUP ,SIG_IGN);
+    int pid;
+    if( pid = fork() ){
+		exit(0); 	   
+	}
+    setsid();
     struct sockaddr_in servaddr, cliaddr;
     socklen_t cliaddr_len;
     int listenfd, connfd;
@@ -41,8 +52,7 @@ int main(void)
                         (struct sockaddr *)&cliaddr, &cliaddr_len);
 
         n = read(connfd, buf, MAXLINE);
-        printf("receivedfrom %s\n",
-               inet_ntop(AF_INET, &cliaddr.sin_addr, str, sizeof(str)));
+        inet_ntop(AF_INET, &cliaddr.sin_addr, str, sizeof(str));
         ntohs(cliaddr.sin_port);
         for (i = 0; i < n; i++)
             buf2[i] = buf[i];
